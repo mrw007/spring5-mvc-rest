@@ -18,11 +18,9 @@ class CategoryMapperTest {
         Category category = new Category();
         category.setName(CATEGORY_NAME);
         category.setId(ID);
-        System.out.println(category);
 
         //when
         CategoryDTO categoryDTO = categoryMapper.categoryToCategoryDTO(category);
-        System.out.println(categoryDTO);
 
         //then
         assertEquals(ID, categoryDTO.getId());
