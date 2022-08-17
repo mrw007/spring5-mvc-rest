@@ -1,7 +1,7 @@
 package mrw007.springframework.api.v1.mapper;
 
 import mrw007.springframework.api.v1.model.CategoryDTO;
-import mrw007.springframework.spring5mvcrest.models.Category;
+import mrw007.springframework.models.Category;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,4 +1,4 @@
-package mrw007.springframework.spring5mvcrest.models;
+package mrw007.springframework.models;
 
 import lombok.*;
 

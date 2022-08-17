@@ -1,7 +1,7 @@
-package mrw007.springframework.spring5mvcrest.bootstrap;
+package mrw007.springframework.bootstrap;
 
-import mrw007.springframework.spring5mvcrest.models.Category;
-import mrw007.springframework.spring5mvcrest.repositories.CategoryRepository;
+import mrw007.springframework.models.Category;
+import mrw007.springframework.repositories.CategoryRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 

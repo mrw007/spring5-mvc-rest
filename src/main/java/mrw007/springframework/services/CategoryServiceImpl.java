@@ -1,8 +1,8 @@
-package mrw007.springframework.spring5mvcrest.services;
+package mrw007.springframework.services;
 
 import mrw007.springframework.api.v1.mapper.CategoryMapper;
 import mrw007.springframework.api.v1.model.CategoryDTO;
-import mrw007.springframework.spring5mvcrest.repositories.CategoryRepository;
+import mrw007.springframework.repositories.CategoryRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
