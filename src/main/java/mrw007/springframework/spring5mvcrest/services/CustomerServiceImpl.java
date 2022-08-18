@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
+    public static final String CUSTOMERS_BASE_URL = "/api/v1/customers/";
     private final CustomerMapper customerMapper;
     private final CustomerRepository customerRepository;
 
@@ -27,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .stream()
                 .map(customer -> {
                     CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
-                    customerDTO.setCustomerUrl("/api/v1/customers/" + customer.getId());
+                    customerDTO.setCustomerUrl(CUSTOMERS_BASE_URL + customer.getId());
                     return customerDTO;
                 })
                 .collect(Collectors.toList());
@@ -41,7 +42,16 @@ public class CustomerServiceImpl implements CustomerService {
             throw new RuntimeException("Customer with ID= " + id + " not Found!");
         }
         CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer.get());
-        customerDTO.setCustomerUrl("/api/v1/customers/" + customerDTO.getId());
+        customerDTO.setCustomerUrl(CUSTOMERS_BASE_URL + customerDTO.getId());
         return customerDTO;
+    }
+
+    @Override
+    public CustomerDTO createNewCustomer(CustomerDTO customerDTO) {
+        Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
+        Customer savedCustomer = customerRepository.save(customer);
+        CustomerDTO resultedCustomerDTO = customerMapper.customerToCustomerDTO(savedCustomer);
+        resultedCustomerDTO.setCustomerUrl(CUSTOMERS_BASE_URL + savedCustomer.getId());
+        return resultedCustomerDTO;
     }
 }
