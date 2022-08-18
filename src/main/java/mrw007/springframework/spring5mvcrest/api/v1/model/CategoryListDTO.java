@@ -1,4 +1,4 @@
-package mrw007.springframework.api.v1.model;
+package mrw007.springframework.spring5mvcrest.api.v1.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

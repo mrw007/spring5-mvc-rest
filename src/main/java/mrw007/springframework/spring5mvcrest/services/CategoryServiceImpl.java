@@ -1,14 +1,15 @@
-package mrw007.springframework.services;
+package mrw007.springframework.spring5mvcrest.services;
 
-import mrw007.springframework.api.v1.mapper.CategoryMapper;
-import mrw007.springframework.api.v1.model.CategoryDTO;
-import mrw007.springframework.repositories.CategoryRepository;
+ import mrw007.springframework.spring5mvcrest.api.v1.mapper.CategoryMapper;
+ import mrw007.springframework.spring5mvcrest.api.v1.model.CategoryDTO;
+import mrw007.springframework.spring5mvcrest.repositories.CategoryRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class CategoryServiceImpl implements CategoryService {
-
     private final CategoryMapper categoryMapper;
     private final CategoryRepository categoryRepository;
 

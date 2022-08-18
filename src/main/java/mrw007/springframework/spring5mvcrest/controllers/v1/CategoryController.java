@@ -1,8 +1,8 @@
-package mrw007.springframework.controllers.v1;
+package mrw007.springframework.spring5mvcrest.controllers.v1;
 
-import mrw007.springframework.api.v1.model.CategoryDTO;
-import mrw007.springframework.api.v1.model.CategoryListDTO;
-import mrw007.springframework.services.CategoryService;
+import mrw007.springframework.spring5mvcrest.api.v1.model.CategoryDTO;
+import mrw007.springframework.spring5mvcrest.api.v1.model.CategoryListDTO;
+import mrw007.springframework.spring5mvcrest.services.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

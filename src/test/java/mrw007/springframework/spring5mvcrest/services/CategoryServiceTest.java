@@ -1,9 +1,9 @@
-package mrw007.springframework.services;
+package mrw007.springframework.spring5mvcrest.services;
 
-import mrw007.springframework.api.v1.mapper.CategoryMapper;
-import mrw007.springframework.api.v1.model.CategoryDTO;
-import mrw007.springframework.models.Category;
-import mrw007.springframework.repositories.CategoryRepository;
+import mrw007.springframework.spring5mvcrest.api.v1.mapper.CategoryMapper;
+import mrw007.springframework.spring5mvcrest.api.v1.model.CategoryDTO;
+import mrw007.springframework.spring5mvcrest.models.Category;
+import mrw007.springframework.spring5mvcrest.repositories.CategoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

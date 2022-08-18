@@ -1,6 +1,6 @@
-package mrw007.springframework.services;
+package mrw007.springframework.spring5mvcrest.services;
 
-import mrw007.springframework.api.v1.model.CategoryDTO;
+import mrw007.springframework.spring5mvcrest.api.v1.model.CategoryDTO;
 
 import java.util.List;
 

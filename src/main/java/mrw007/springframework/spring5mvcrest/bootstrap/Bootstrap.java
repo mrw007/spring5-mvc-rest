@@ -1,7 +1,7 @@
-package mrw007.springframework.bootstrap;
+package mrw007.springframework.spring5mvcrest.bootstrap;
 
-import mrw007.springframework.models.Category;
-import mrw007.springframework.repositories.CategoryRepository;
+import mrw007.springframework.spring5mvcrest.models.Category;
+import mrw007.springframework.spring5mvcrest.repositories.CategoryRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -21,16 +21,16 @@ public class Bootstrap implements CommandLineRunner {
         fruits.setName("Fruits");
 
         Category dried = new Category();
-        fruits.setName("Dried");
+        dried.setName("Dried");
 
         Category fresh = new Category();
-        fruits.setName("Fresh");
+        fresh.setName("Fresh");
 
         Category exotic = new Category();
-        fruits.setName("Exotic");
+        exotic.setName("Exotic");
 
         Category nuts = new Category();
-        fruits.setName("Nuts");
+        nuts.setName("Nuts");
 
         categoryRepository.save(fruits);
         categoryRepository.save(dried);

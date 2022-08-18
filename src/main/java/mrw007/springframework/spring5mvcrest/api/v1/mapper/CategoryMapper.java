@@ -1,7 +1,7 @@
-package mrw007.springframework.api.v1.mapper;
+package mrw007.springframework.spring5mvcrest.api.v1.mapper;
 
-import mrw007.springframework.api.v1.model.CategoryDTO;
-import mrw007.springframework.models.Category;
+import mrw007.springframework.spring5mvcrest.api.v1.model.CategoryDTO;
+import mrw007.springframework.spring5mvcrest.models.Category;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
