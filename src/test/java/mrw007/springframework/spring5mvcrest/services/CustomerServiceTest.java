@@ -21,6 +21,8 @@ class CustomerServiceTest {
     public static final long ID = 1L;
     public static final String CUSTOMER_FIRST_NAME = "Joe";
     public static final String CUSTOMER_LAST_NAME = "Newman";
+    public static final String CUSTOMERS_BASE_URL = "/api/v1/customers/";
+
 
     CustomerService customerService;
 
@@ -57,5 +59,6 @@ class CustomerServiceTest {
         assertEquals(ID, customerDTO.getId());
         assertEquals(CUSTOMER_FIRST_NAME, customerDTO.getFirstName());
         assertEquals(CUSTOMER_LAST_NAME, customerDTO.getLastName());
+        assertEquals(CUSTOMERS_BASE_URL + ID, customerDTO.getCustomerUrl());
     }
 }

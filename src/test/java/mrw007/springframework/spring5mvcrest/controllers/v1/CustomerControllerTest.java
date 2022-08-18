@@ -112,6 +112,7 @@ class CustomerControllerTest {
         customerDTO1.setId(ID_1);
         customerDTO1.setFirstName(CUSTOMER_1_FIRST_NAME);
         customerDTO1.setLastName(CUSTOMER_1_LAST_NAME);
+        customerDTO1.setCustomerUrl(CUSTOMERS_BASE_URL + ID_1);
 
         when(customerService.getCustomerByID(anyLong())).thenReturn(customerDTO1);
 
@@ -120,6 +121,7 @@ class CustomerControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", equalTo(ID_1)))
                 .andExpect(jsonPath("$.firstName", equalTo(CUSTOMER_1_FIRST_NAME)))
-                .andExpect(jsonPath("$.lastName", equalTo(CUSTOMER_1_LAST_NAME)));
+                .andExpect(jsonPath("$.lastName", equalTo(CUSTOMER_1_LAST_NAME)))
+                .andExpect(jsonPath("$.customerUrl", equalTo(CUSTOMERS_BASE_URL + ID_1)));
     }
 }
