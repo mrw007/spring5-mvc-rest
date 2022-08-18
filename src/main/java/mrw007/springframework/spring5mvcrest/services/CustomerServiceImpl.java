@@ -39,7 +39,7 @@ public class CustomerServiceImpl implements CustomerService {
         Optional<Customer> customer = customerRepository.findById(id);
         if (customer.isEmpty()) {
             //TODO Implement better exception Handling
-            throw new RuntimeException("Customer with ID= " + id + " not Found!");
+            throw new ResourceNotFoundException();
         }
         CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer.get());
         customerDTO.setCustomerUrl(CUSTOMERS_BASE_URL + customerDTO.getId());
@@ -69,7 +69,7 @@ public class CustomerServiceImpl implements CustomerService {
                 customer.setLastName(customerDTO.getLastName());
             }
             return saveAndReturnDTO(customer);
-        }).orElseThrow(RuntimeException::new); //todo implement better exception handling
+        }).orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
