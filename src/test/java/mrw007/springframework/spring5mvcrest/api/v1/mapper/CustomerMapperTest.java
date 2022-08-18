@@ -1,0 +1,30 @@
+package mrw007.springframework.spring5mvcrest.api.v1.mapper;
+
+import mrw007.springframework.spring5mvcrest.api.v1.model.CustomerDTO;
+import mrw007.springframework.spring5mvcrest.models.Customer;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class CustomerMapperTest {
+
+    public static final long ID = 1L;
+    public static final String CUSTOMER_FIRST_NAME = "Joe";
+    public static final String CUSTOMER_LAST_NAME = "Newman";
+
+    CustomerMapper customerMapper = CustomerMapper.INSTANCE;
+
+    @Test
+    void customerToCustomerDTO() {
+        Customer customer = new Customer();
+        customer.setId(ID);
+        customer.setFirstName(CUSTOMER_FIRST_NAME);
+        customer.setLastName(CUSTOMER_LAST_NAME);
+
+        CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
+
+        assertEquals(ID, customerDTO.getId());
+        assertEquals(CUSTOMER_FIRST_NAME, customerDTO.getFirstName());
+        assertEquals(CUSTOMER_LAST_NAME, customerDTO.getLastName());
+    }
+}
