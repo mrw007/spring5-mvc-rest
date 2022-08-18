@@ -24,9 +24,7 @@ class CustomerServiceTest {
     public static final String CUSTOMER_LAST_NAME = "Newman";
     public static final String CUSTOMERS_BASE_URL = "/api/v1/customers/";
 
-
     CustomerService customerService;
-
     @Mock
     CustomerRepository customerRepository;
 
@@ -80,5 +78,24 @@ class CustomerServiceTest {
 
         assertEquals(customerDTO.getFirstName(), savedDto.getFirstName());
         assertEquals(CUSTOMERS_BASE_URL + ID, savedDto.getCustomerUrl());
+    }
+
+    @Test
+    void saveCustomerById() {
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setFirstName(CUSTOMER_FIRST_NAME);
+        customerDTO.setLastName(CUSTOMER_LAST_NAME);
+
+        Customer savedCustomer = new Customer();
+        savedCustomer.setId(ID);
+        savedCustomer.setFirstName(customerDTO.getFirstName());
+        savedCustomer.setLastName(customerDTO.getLastName());
+
+        when(customerRepository.save(any(Customer.class))).thenReturn(savedCustomer);
+
+        CustomerDTO savedDTO =  customerService.updateCustomerById(ID,customerDTO);
+
+        assertEquals(customerDTO.getFirstName(), savedDTO.getFirstName());
+        assertEquals(CUSTOMERS_BASE_URL + ID, savedDTO.getCustomerUrl());
     }
 }

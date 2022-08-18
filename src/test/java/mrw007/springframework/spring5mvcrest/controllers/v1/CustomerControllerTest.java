@@ -27,10 +27,10 @@ import java.util.Set;
 import static mrw007.springframework.spring5mvcrest.controllers.v1.AbstractRestControllerTest.asJsonString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -141,11 +141,34 @@ class CustomerControllerTest {
         when(customerService.createNewCustomer(customerDTO)).thenReturn(returnCustomerDTO);
 
         mockMvc.perform(post(CUSTOMERS_BASE_URL)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(customerDTO)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(customerDTO)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.firstName", equalTo(CUSTOMER_1_FIRST_NAME)))
                 .andExpect(jsonPath("$.lastName", equalTo(CUSTOMER_1_LAST_NAME)))
                 .andExpect(jsonPath("$.customerUrl", equalTo(CUSTOMERS_BASE_URL + ID_1)));
+    }
+
+    @Test
+    void testUpdateCustomerById() throws Exception {
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setFirstName(CUSTOMER_1_FIRST_NAME);
+        customerDTO.setLastName(CUSTOMER_1_LAST_NAME);
+
+        CustomerDTO returnCustomerDTO = new CustomerDTO();
+        returnCustomerDTO.setFirstName(customerDTO.getFirstName());
+        returnCustomerDTO.setLastName(customerDTO.getLastName());
+        returnCustomerDTO.setCustomerUrl(CUSTOMERS_BASE_URL + ID_1);
+
+        when(customerService.updateCustomerById(anyLong(), any(CustomerDTO.class))).thenReturn(returnCustomerDTO);
+
+        mockMvc.perform(put(CUSTOMERS_BASE_URL+ID_1)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(customerDTO)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.firstName", equalTo(CUSTOMER_1_FIRST_NAME)))
+                .andExpect(jsonPath("$.lastName", equalTo(CUSTOMER_1_LAST_NAME)))
+                .andExpect(jsonPath("$.customerUrl", equalTo(CUSTOMERS_BASE_URL + ID_1)));
+
     }
 }
