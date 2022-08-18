@@ -29,7 +29,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -162,7 +162,7 @@ class CustomerControllerTest {
 
         when(customerService.updateCustomerById(anyLong(), any(CustomerDTO.class))).thenReturn(returnCustomerDTO);
 
-        mockMvc.perform(put(CUSTOMERS_BASE_URL+ID_1)
+        mockMvc.perform(put(CUSTOMERS_BASE_URL + ID_1)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(customerDTO)))
                 .andExpect(status().isOk())
@@ -185,7 +185,7 @@ class CustomerControllerTest {
 
         when(customerService.patchCustomer(anyLong(), any(CustomerDTO.class))).thenReturn(returnCustomerDTO);
 
-        mockMvc.perform(patch(CUSTOMERS_BASE_URL+ID_1)
+        mockMvc.perform(patch(CUSTOMERS_BASE_URL + ID_1)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(customerDTO)))
                 .andExpect(status().isOk())
@@ -193,5 +193,14 @@ class CustomerControllerTest {
                 .andExpect(jsonPath("$.lastName", equalTo(CUSTOMER_1_LAST_NAME)))
                 .andExpect(jsonPath("$.customerUrl", equalTo(CUSTOMERS_BASE_URL + ID_1)));
 
+    }
+
+    @Test
+    void testDeleteCustomerById() throws Exception {
+        mockMvc.perform(delete(CUSTOMERS_BASE_URL + ID_1)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(customerService,times(1)).deleteCustomerById(anyLong());
     }
 }
