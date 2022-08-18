@@ -28,6 +28,7 @@ class CategoryControllerTest {
     public static final long ID_1 = 1L;
     public static final long ID_2 = 2L;
     public static final String CATEGORY_NAME_2 = "Bob";
+    public static final String CATEGORIES_BASE_URL = "/api/v1/categories/";
 
     @Mock
     CategoryService categoryService;
@@ -58,7 +59,7 @@ class CategoryControllerTest {
 
         when(categoryService.getAllCategories()).thenReturn(categories);
 
-        mockMvc.perform(get("/api/v1/categories/")
+        mockMvc.perform(get(CATEGORIES_BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.categories", hasSize(2)));
@@ -72,7 +73,7 @@ class CategoryControllerTest {
 
         when(categoryService.getCategoryByName(anyString())).thenReturn(category);
 
-        mockMvc.perform(get("/api/v1/categories/"+ CATEGORY_NAME_1)
+        mockMvc.perform(get(CATEGORIES_BASE_URL + CATEGORY_NAME_1)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", equalTo(CATEGORY_NAME_1)));
