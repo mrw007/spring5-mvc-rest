@@ -19,33 +19,38 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<CustomerListDTO> getAllCustomers() {
-        return new ResponseEntity<>(new CustomerListDTO(customerService.getAllCustomers()), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public CustomerListDTO getAllCustomers() {
+        return new CustomerListDTO(customerService.getAllCustomers());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable Long id) {
-        return new ResponseEntity<>(customerService.getCustomerByID(id), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public CustomerDTO getCustomerById(@PathVariable Long id) {
+        return customerService.getCustomerByID(id);
     }
 
     @PostMapping
-    public ResponseEntity<CustomerDTO> createNewCustomer(@RequestBody CustomerDTO customerDTO) {
-        return new ResponseEntity<>(customerService.createNewCustomer(customerDTO), HttpStatus.CREATED);
+    @ResponseStatus(HttpStatus.CREATED)
+    public CustomerDTO createNewCustomer(@RequestBody CustomerDTO customerDTO) {
+        return customerService.createNewCustomer(customerDTO);
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
-    public ResponseEntity<CustomerDTO> updateCustomerById(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
-        return new ResponseEntity<>(customerService.updateCustomerById(id, customerDTO), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public CustomerDTO updateCustomerById(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
+        return customerService.updateCustomerById(id, customerDTO);
     }
 
     @RequestMapping(method = RequestMethod.PATCH, path = "/{id}")
-    public ResponseEntity<CustomerDTO> patchCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
-        return new ResponseEntity<>(customerService.patchCustomer(id, customerDTO), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public CustomerDTO patchCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
+        return customerService.patchCustomer(id, customerDTO);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCustomerById(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteCustomerById(@PathVariable Long id) {
         customerService.deleteCustomerById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
