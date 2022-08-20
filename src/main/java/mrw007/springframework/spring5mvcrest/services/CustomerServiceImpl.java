@@ -38,7 +38,6 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDTO getCustomerByID(Long id) {
         Optional<Customer> customer = customerRepository.findById(id);
         if (customer.isEmpty()) {
-            //TODO Implement better exception Handling
             throw new ResourceNotFoundException();
         }
         CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer.get());
