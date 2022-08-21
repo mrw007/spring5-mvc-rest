@@ -4,11 +4,13 @@ import mrw007.springframework.spring5mvcrest.api.v1.mapper.VendorMapper;
 import mrw007.springframework.spring5mvcrest.api.v1.model.VendorDTO;
 import mrw007.springframework.spring5mvcrest.models.Vendor;
 import mrw007.springframework.spring5mvcrest.repositories.VendorRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 public class VendorServiceImpl implements VendorService {
 
     private final VendorRepository vendorRepository;
