@@ -2,8 +2,10 @@ package mrw007.springframework.spring5mvcrest.bootstrap;
 
 import mrw007.springframework.spring5mvcrest.models.Category;
 import mrw007.springframework.spring5mvcrest.models.Customer;
+import mrw007.springframework.spring5mvcrest.models.Vendor;
 import mrw007.springframework.spring5mvcrest.repositories.CategoryRepository;
 import mrw007.springframework.spring5mvcrest.repositories.CustomerRepository;
+import mrw007.springframework.spring5mvcrest.repositories.VendorRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -12,10 +14,12 @@ public class Bootstrap implements CommandLineRunner {
 
     private final CategoryRepository categoryRepository;
     private final CustomerRepository customerRepository;
+    private final VendorRepository vendorRepository;
 
-    public Bootstrap(CategoryRepository categoryRepository, CustomerRepository customerRepository) {
+    public Bootstrap(CategoryRepository categoryRepository, CustomerRepository customerRepository, VendorRepository vendorRepository) {
         this.categoryRepository = categoryRepository;
         this.customerRepository = customerRepository;
+        this.vendorRepository = vendorRepository;
     }
 
     @Override
@@ -27,6 +31,19 @@ public class Bootstrap implements CommandLineRunner {
         loadCustomers();
         System.out.println("Customers Data loaded = " + customerRepository.count());
 
+        loadVendors();
+        System.out.println("Vendors Data loaded = " + customerRepository.count());
+    }
+
+    private void loadVendors() {
+        Vendor vendor1 = new Vendor();
+        vendor1.setName("Vendor 1");
+
+        Vendor vendor2 = new Vendor();
+        vendor2.setName("Vendor 2");
+
+        vendorRepository.save(vendor1);
+        vendorRepository.save(vendor2);
     }
 
     private void loadCustomers() {

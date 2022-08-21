@@ -13,9 +13,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 class VendorServiceTest {
@@ -36,11 +40,12 @@ class VendorServiceTest {
     @Test
     void getAllVendors() {
         List<Vendor> vendors = Arrays.asList(new Vendor(), new Vendor(), new Vendor());
-        when(vendorRepository.findAll()).thenReturn(vendors);
+
+        given(vendorRepository.findAll()).willReturn(vendors);
 
         List<VendorDTO> vendorDTOS = vendorService.getAllVendors();
 
-        assertEquals(3, vendorDTOS.size());
+        assertThat(vendorDTOS.size(), is(equalTo(3)));
     }
 
     @Test
@@ -49,7 +54,7 @@ class VendorServiceTest {
         vendor.setId(ID);
         vendor.setName(VENDOR_NAME);
 
-        when(vendorRepository.findById(anyLong())).thenReturn(Optional.of(vendor));
+        given(vendorRepository.findById(anyLong())).willReturn(Optional.of(vendor));
 
         VendorDTO vendorDTO = vendorService.getVendorByID(ID);
 
@@ -67,7 +72,7 @@ class VendorServiceTest {
         savedVendor.setId(ID);
         savedVendor.setName(vendorDTO.getName());
 
-        when(vendorRepository.save(any(Vendor.class))).thenReturn(savedVendor);
+        given(vendorRepository.save(any(Vendor.class))).willReturn(savedVendor);
 
         VendorDTO savedDto = vendorService.createNewVendor(vendorDTO);
 
