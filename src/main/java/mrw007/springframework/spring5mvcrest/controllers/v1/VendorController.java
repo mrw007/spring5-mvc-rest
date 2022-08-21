@@ -1,12 +1,14 @@
 package mrw007.springframework.spring5mvcrest.controllers.v1;
 
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import mrw007.springframework.spring5mvcrest.api.v1.model.VendorDTO;
 import mrw007.springframework.spring5mvcrest.api.v1.model.VendorListDTO;
 import mrw007.springframework.spring5mvcrest.services.VendorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "Vendors")
 @RestController
 @RequestMapping(VendorController.VENDORS_BASE_URL)
 public class VendorController {

@@ -1,12 +1,14 @@
 package mrw007.springframework.spring5mvcrest.controllers.v1;
 
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import mrw007.springframework.spring5mvcrest.api.v1.model.CustomerDTO;
 import mrw007.springframework.spring5mvcrest.api.v1.model.CustomerListDTO;
 import mrw007.springframework.spring5mvcrest.services.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "Customers")
 @RestController
 @RequestMapping(CustomerController.CUSTOMERS_BASE_URL)
 public class CustomerController {
