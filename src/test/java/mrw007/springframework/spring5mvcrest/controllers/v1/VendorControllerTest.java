@@ -102,6 +102,7 @@ class VendorControllerTest {
         when(vendorService.getAllVendors()).thenReturn(vendors);
 
         mockMvc.perform(get(VENDORS_BASE_URL)
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.vendors", hasSize(2)));
@@ -117,6 +118,7 @@ class VendorControllerTest {
         when(vendorService.getVendorByID(ID_1)).thenReturn(vendorDTO1);
 
         mockMvc.perform(get(VENDORS_BASE_URL + ID_1)
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", equalTo(ID_1)))
@@ -137,6 +139,7 @@ class VendorControllerTest {
         when(vendorService.createNewVendor(any(VendorDTO.class))).thenReturn(returnDTO);
 
         mockMvc.perform(post(VENDORS_BASE_URL)
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(vendorDTO)))
                 .andExpect(status().isCreated())
@@ -158,6 +161,7 @@ class VendorControllerTest {
         when(vendorService.updateVendorById(anyLong(), any(VendorDTO.class))).thenReturn(returnDTO);
 
         mockMvc.perform(put(VENDORS_BASE_URL + ID_1)
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(vendorDTO)))
                 .andExpect(status().isOk())
@@ -179,6 +183,7 @@ class VendorControllerTest {
         when(vendorService.patchVendor(anyLong(), any(VendorDTO.class))).thenReturn(returnDTO);
 
         mockMvc.perform(patch(VENDORS_BASE_URL + ID_1)
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(vendorDTO)))
                 .andExpect(status().isOk())
