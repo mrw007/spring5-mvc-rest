@@ -1,7 +1,7 @@
 package mrw007.springframework.spring5mvcrest.services;
 
 import mrw007.springframework.spring5mvcrest.api.v1.mapper.CustomerMapper;
-import mrw007.springframework.spring5mvcrest.api.v1.model.CustomerDTO;
+import mrw007.springframework.model.CustomerDTO;
 import mrw007.springframework.spring5mvcrest.bootstrap.Bootstrap;
 import mrw007.springframework.spring5mvcrest.models.Customer;
 import mrw007.springframework.spring5mvcrest.repositories.CategoryRepository;

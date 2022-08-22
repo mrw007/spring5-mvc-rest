@@ -1,7 +1,8 @@
 package mrw007.springframework.spring5mvcrest.services;
 
+import lombok.extern.slf4j.Slf4j;
 import mrw007.springframework.spring5mvcrest.api.v1.mapper.CustomerMapper;
-import mrw007.springframework.spring5mvcrest.api.v1.model.CustomerDTO;
+import mrw007.springframework.model.CustomerDTO;
 import mrw007.springframework.spring5mvcrest.models.Customer;
 import mrw007.springframework.spring5mvcrest.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
@@ -41,12 +43,14 @@ public class CustomerServiceImpl implements CustomerService {
             throw new ResourceNotFoundException();
         }
         CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer.get());
-        customerDTO.setCustomerUrl(CUSTOMERS_BASE_URL + customerDTO.getId());
+        customerDTO.setCustomerUrl(CUSTOMERS_BASE_URL + customer.get().getId());
         return customerDTO;
     }
 
     @Override
     public CustomerDTO createNewCustomer(CustomerDTO customerDTO) {
+        CustomerDTO customerDTO1 =saveAndReturnDTO(customerMapper.customerDTOToCustomer(customerDTO));
+        log.debug(customerDTO1.toString());
         return saveAndReturnDTO(customerMapper.customerDTOToCustomer(customerDTO));
     }
 

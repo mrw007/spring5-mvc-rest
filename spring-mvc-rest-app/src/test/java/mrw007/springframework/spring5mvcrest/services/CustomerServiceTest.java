@@ -1,7 +1,7 @@
 package mrw007.springframework.spring5mvcrest.services;
 
 import mrw007.springframework.spring5mvcrest.api.v1.mapper.CustomerMapper;
-import mrw007.springframework.spring5mvcrest.api.v1.model.CustomerDTO;
+import mrw007.springframework.model.CustomerDTO;
 import mrw007.springframework.spring5mvcrest.models.Customer;
 import mrw007.springframework.spring5mvcrest.repositories.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -55,7 +55,6 @@ class CustomerServiceTest {
 
         CustomerDTO customerDTO = customerService.getCustomerByID(ID);
 
-        assertEquals(ID, customerDTO.getId());
         assertEquals(CUSTOMER_FIRST_NAME, customerDTO.getFirstName());
         assertEquals(CUSTOMER_LAST_NAME, customerDTO.getLastName());
         assertEquals(CUSTOMERS_BASE_URL + ID, customerDTO.getCustomerUrl());

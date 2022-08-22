@@ -1,6 +1,6 @@
 package mrw007.springframework.spring5mvcrest.services;
 
-import mrw007.springframework.spring5mvcrest.api.v1.model.CustomerDTO;
+import mrw007.springframework.model.CustomerDTO;
 
 import java.util.List;
 

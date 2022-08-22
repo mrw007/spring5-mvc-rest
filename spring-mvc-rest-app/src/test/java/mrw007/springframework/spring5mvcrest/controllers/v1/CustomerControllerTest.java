@@ -8,7 +8,7 @@ import com.jayway.jsonpath.spi.json.JacksonJsonProvider;
 import com.jayway.jsonpath.spi.json.JsonProvider;
 import com.jayway.jsonpath.spi.mapper.JacksonMappingProvider;
 import com.jayway.jsonpath.spi.mapper.MappingProvider;
-import mrw007.springframework.spring5mvcrest.api.v1.model.CustomerDTO;
+import mrw007.springframework.model.CustomerDTO;
 import mrw007.springframework.spring5mvcrest.services.CustomerService;
 import mrw007.springframework.spring5mvcrest.services.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -92,12 +92,10 @@ class CustomerControllerTest {
     @Test
     void testGetAllCustomers() throws Exception {
         CustomerDTO customerDTO1 = new CustomerDTO();
-        customerDTO1.setId(ID_1);
         customerDTO1.setFirstName(CUSTOMER_1_FIRST_NAME);
         customerDTO1.setLastName(CUSTOMER_1_LAST_NAME);
 
         CustomerDTO customerDTO2 = new CustomerDTO();
-        customerDTO2.setId(ID_2);
         customerDTO2.setFirstName(CUSTOMER_2_FIRST_NAME);
         customerDTO2.setLastName(CUSTOMER_2_LAST_NAME);
 
@@ -115,7 +113,6 @@ class CustomerControllerTest {
     @Test
     void testGetCustomerById() throws Exception {
         CustomerDTO customerDTO1 = new CustomerDTO();
-        customerDTO1.setId(ID_1);
         customerDTO1.setFirstName(CUSTOMER_1_FIRST_NAME);
         customerDTO1.setLastName(CUSTOMER_1_LAST_NAME);
         customerDTO1.setCustomerUrl(CUSTOMERS_BASE_URL + ID_1);
@@ -126,7 +123,6 @@ class CustomerControllerTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", equalTo(ID_1)))
                 .andExpect(jsonPath("$.firstName", equalTo(CUSTOMER_1_FIRST_NAME)))
                 .andExpect(jsonPath("$.lastName", equalTo(CUSTOMER_1_LAST_NAME)))
                 .andExpect(jsonPath("$.customerUrl", equalTo(CUSTOMERS_BASE_URL + ID_1)));
@@ -143,7 +139,7 @@ class CustomerControllerTest {
         returnCustomerDTO.setLastName(customerDTO.getLastName());
         returnCustomerDTO.setCustomerUrl(CUSTOMERS_BASE_URL + ID_1);
 
-        when(customerService.createNewCustomer(customerDTO)).thenReturn(returnCustomerDTO);
+        when(customerService.createNewCustomer(any(CustomerDTO.class))).thenReturn(returnCustomerDTO);
 
         mockMvc.perform(post(CUSTOMERS_BASE_URL)
                         .accept(MediaType.APPLICATION_JSON)

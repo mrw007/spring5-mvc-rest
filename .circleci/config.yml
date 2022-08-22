@@ -18,6 +18,8 @@ jobs: # a collection of steps
           # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
           key: spring5-mvc-rest-{{ checksum "pom.xml" }}
 
+      - run: mvn install -Dskiptests
+
       - run: mvn dependency:go-offline # gets the project dependencies
 
       - save_cache: # saves the project dependencies
