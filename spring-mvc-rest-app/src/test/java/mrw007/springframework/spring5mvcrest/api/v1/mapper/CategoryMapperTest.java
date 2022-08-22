@@ -1,6 +1,5 @@
 package mrw007.springframework.spring5mvcrest.api.v1.mapper;
 
-import mrw007.springframework.spring5mvcrest.api.v1.mapper.CategoryMapper;
 import mrw007.springframework.spring5mvcrest.api.v1.model.CategoryDTO;
 import mrw007.springframework.spring5mvcrest.models.Category;
 import org.junit.jupiter.api.Test;
