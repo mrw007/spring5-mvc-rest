@@ -13,10 +13,13 @@ import mrw007.springframework.spring5mvcrest.services.ResourceNotFoundException;
 import mrw007.springframework.spring5mvcrest.services.VendorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -31,10 +34,12 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@ExtendWith(RestDocumentationExtension.class)
 class VendorControllerTest {
 
     public static final long ID_1 = 1L;
@@ -52,11 +57,12 @@ class VendorControllerTest {
     MockMvc mockMvc;
 
     @BeforeEach
-    void setUp() {
+    void setUp(RestDocumentationContextProvider restDocumentation) {
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders
                 .standaloneSetup(vendorController)
                 .setControllerAdvice(new RestResponseEntityExceptionHandler())
+                .apply(documentationConfiguration(restDocumentation))
                 .build();
         deserializationSetup();
     }

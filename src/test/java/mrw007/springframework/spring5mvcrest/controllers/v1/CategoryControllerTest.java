@@ -5,10 +5,13 @@ import mrw007.springframework.spring5mvcrest.services.CategoryService;
 import mrw007.springframework.spring5mvcrest.services.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -19,10 +22,12 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@ExtendWith(RestDocumentationExtension.class)
 class CategoryControllerTest {
 
     public static final String CATEGORY_NAME_1 = "Jim";
@@ -40,10 +45,11 @@ class CategoryControllerTest {
     MockMvc mockMvc;
 
     @BeforeEach
-    void setUp() {
+    void setUp(RestDocumentationContextProvider restDocumentation) {
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(categoryController)
                 .setControllerAdvice(new RestResponseEntityExceptionHandler())
+                .apply(documentationConfiguration(restDocumentation))
                 .build();
     }
 
