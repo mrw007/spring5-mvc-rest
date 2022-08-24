@@ -1,0 +1,52 @@
+= Spring Framework 5 MVC Rest Application
+Wahib Kerkeni;
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+
+Restful Interfaces with Spring 5
+
+NEW CUSTOMER
+
+One showing how to make a request using cURL:
+
+include::{snippets}/v1/customers-new/curl-request.adoc[]
+
+One showing the HTTP request:
+
+include::{snippets}/v1/customers-new/http-request.adoc[]
+
+And one showing the HTTP response:
+
+include::{snippets}/v1/customers-new/http-response.adoc[]
+
+Response Body:
+include::{snippets}/v1/customers-new/response-body.adoc[]
+
+Request Fields:
+include::{snippets}/v1/customers-new/request-fields.adoc[]
+
+Response Fields:
+include::{snippets}/v1/customers-new/response-fields.adoc[]
+
+
+GET CUSTOMER BY ID
+
+One showing how to make a request using cURL:
+
+include::{snippets}/v1/customers-getById/curl-request.adoc[]
+
+One showing the HTTP request:
+
+include::{snippets}/v1/customers-getById/http-request.adoc[]
+
+And one showing the HTTP response:
+
+include::{snippets}/v1/customers-getById/http-response.adoc[]
+
+Response Body:
+include::{snippets}/v1/customers-getById/response-body.adoc[]
+
+
+Response Fields:
+include::{snippets}/v1/customers-getById/response-fields.adoc[]

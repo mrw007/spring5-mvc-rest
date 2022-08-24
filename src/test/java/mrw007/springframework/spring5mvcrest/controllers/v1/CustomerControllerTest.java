@@ -13,10 +13,13 @@ import mrw007.springframework.spring5mvcrest.services.CustomerService;
 import mrw007.springframework.spring5mvcrest.services.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -31,11 +34,15 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
+@ExtendWith(RestDocumentationExtension.class)
 class CustomerControllerTest {
 
     public static final long ID_1 = 1L;
@@ -56,10 +63,11 @@ class CustomerControllerTest {
     MockMvc mockMvc;
 
     @BeforeEach
-    void setUp() {
+    void setUp(RestDocumentationContextProvider restDocumentation) {
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(customerController)
                 .setControllerAdvice(new RestResponseEntityExceptionHandler())
+                .apply(documentationConfiguration(restDocumentation))
                 .build();
         deserializationSetup();
     }
@@ -121,13 +129,28 @@ class CustomerControllerTest {
 
         when(customerService.getCustomerByID(anyLong())).thenReturn(customerDTO1);
 
-        mockMvc.perform(get(CUSTOMERS_BASE_URL + ID_1)
+        mockMvc.perform(get(CUSTOMERS_BASE_URL + "/{customerId}", ID_1)
+                        .param("isHappy", "yes")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", equalTo(ID_1)))
                 .andExpect(jsonPath("$.firstName", equalTo(CUSTOMER_1_FIRST_NAME)))
                 .andExpect(jsonPath("$.lastName", equalTo(CUSTOMER_1_LAST_NAME)))
-                .andExpect(jsonPath("$.customerUrl", equalTo(CUSTOMERS_BASE_URL + ID_1)));
+                .andExpect(jsonPath("$.customerUrl", equalTo(CUSTOMERS_BASE_URL + ID_1)))
+                .andDo(document("v1/customers-getById",
+                        pathParameters(
+                                parameterWithName("customerId").description("ID of desired Customer")
+                        ),
+                        requestParameters(
+                                parameterWithName("isHappy").description("Is Customer Happy query Param")
+                        ),
+                        responseFields(
+                                fieldWithPath("id").description("ID of Customer"),
+                                fieldWithPath("firstName").description("Customer's First Name"),
+                                fieldWithPath("lastName").description("Customer's Last Name"),
+                                fieldWithPath("customerUrl").description("Customer's URL")
+                        )
+                ));
     }
 
     @Test
@@ -137,6 +160,7 @@ class CustomerControllerTest {
         customerDTO.setLastName(CUSTOMER_1_LAST_NAME);
 
         CustomerDTO returnCustomerDTO = new CustomerDTO();
+        returnCustomerDTO.setId(ID_1);
         returnCustomerDTO.setFirstName(customerDTO.getFirstName());
         returnCustomerDTO.setLastName(customerDTO.getLastName());
         returnCustomerDTO.setCustomerUrl(CUSTOMERS_BASE_URL + ID_1);
@@ -149,7 +173,21 @@ class CustomerControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.firstName", equalTo(CUSTOMER_1_FIRST_NAME)))
                 .andExpect(jsonPath("$.lastName", equalTo(CUSTOMER_1_LAST_NAME)))
-                .andExpect(jsonPath("$.customerUrl", equalTo(CUSTOMERS_BASE_URL + ID_1)));
+                .andExpect(jsonPath("$.customerUrl", equalTo(CUSTOMERS_BASE_URL + ID_1)))
+                .andDo(document("v1/customers-new",
+                        requestFields(
+                                fieldWithPath("id").ignored(),
+                                fieldWithPath("firstName").description("Customer's First Name"),
+                                fieldWithPath("lastName").description("Customer's Last Name"),
+                                fieldWithPath("customerUrl").ignored()
+                        ),
+                        responseFields(
+                                fieldWithPath("id").description("ID of Customer"),
+                                fieldWithPath("firstName").description("Customer's First Name"),
+                                fieldWithPath("lastName").description("Customer's Last Name"),
+                                fieldWithPath("customerUrl").description("Customer's URL")
+                        )
+                ));
     }
 
     @Test
